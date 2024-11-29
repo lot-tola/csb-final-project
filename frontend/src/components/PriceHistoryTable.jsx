@@ -49,8 +49,8 @@ function PriceHistoryTable({ priceHistory, onClose }) {
                 <td>{priceData.date}</td>
                 <td ><a onClick={() => openModal(product)}>{product.name}</a></td>
                 <td>${priceData.price}</td>
-                <td style={change > 0 ? { color: "red" } : { color: "green" }}>
-                  {change >= 0 && "+" }
+                <td style={change <= 0 ? { color: "green" } : { color: "red" }}>
+                  {change > 0 && "-" }
                   {change}%
                 </td>
               </tr>
