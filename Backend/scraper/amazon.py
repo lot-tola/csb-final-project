@@ -6,7 +6,6 @@ async def get_stock(product_div):
     filtered_elements = [element for element in elements if 'stock' in await element.inner_text()]
     return filtered_elements
 
-
 async def get_product(product_div):
     # Query for all elements at once
     image_element_future = product_div.query_selector('img.s-image')

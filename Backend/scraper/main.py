@@ -187,12 +187,13 @@ async def get_products(page, search_text, selector, get_product):
     return valid_products
 
 def normalize_url(url):
-    url = url.lower()
+    url = url.lower().strip()
     if "amazon.ca" in url:
+        return "https://www.amazon.ca"
+    if "amazon.com" in url:
         return "https://www.amazon.com"
-    if "amazon.com" in url and "www" not in url:
-        return "https://www.amazon.com"
-    return url
+    raise ValueError(f"Unsupported URL: {url}")
+
 
 async def main(url, search_text, response_route):
     url = normalize_url(url)
@@ -221,11 +222,10 @@ async def main(url, search_text, response_route):
                 
                 search_page = await search(metadata, page, search_text)
                 
-                def func(x): return None
-                if "amazon.com" in url.lower():
+                if "amazon.com" in url.lower() or "amazon.ca" in url.lower():
                     func = get_amazon_product
                 else:
-                    raise Exception('Invalid URL')
+                    raise Exception('Unsupported URL')
 
                 results = await get_products(search_page, search_text, metadata["product_selector"], func)
                 print(f"Found {len(results)} valid products.")
