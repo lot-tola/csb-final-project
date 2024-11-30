@@ -251,4 +251,4 @@ async def main(url, search_text, response_route):
 
 if __name__ == "__main__":
     # Test script
-    asyncio.run(main(AMAZON, "ryzen 9 3950x", "/api/products"))
+    asyncio.run(main(AMAZON, "charger", "/api/products"))
